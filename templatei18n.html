@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <style>
+            html {
+                width: 100%;
+                height: 100%;
+            }
+            body {
+                margin: 0;
+                padding: 0 !important;
+                font-size: 14px;
+                padding: 30px 25px;
+                font-family:"Microsoft YaHei", "微软雅黑", "华文黑体", "STHeiti";
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+            }
+        </style>
+    </head>
+    <body id="ob"></body>
+    <script src="https://ddcdn.jd.com/ucc/html/static/template.js"></script>
+    <script id="tpl" type="text/html">
+        <div class="main">
+            <div class="declare-wrap">
+                <div class="declare declare-1">
+                {{if code === 'zh'}}{{zh.key01}}{{else if code === 'en' }}{{en.key01}}{{/if}}
+                </div>
+            </div>
+        </div>
+    </script>
+    <script>
+    /**
+     * [qs 地址栏取参]
+     * @param  {[type]} name [description]
+     * @return {[type]}      [description]
+   */
+    function qs(name){
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]); return null;
+    }
+    
+    var lan = '';
+
+    if(qs('lang') && qs('lang') !== null){
+        lan = qs('lang').substr(0, 2).toLowerCase();
+        console.log(lan)
+        localStorage.setItem('lang', lan);
+    } else if (localStorage.getItem('lang') !== null){
+        lan = localStorage.getItem('lang')
+    } else{
+        lan = 'zh'
+    }
+    /**
+     * 文档标题判断
+     * @param  {[type]} lan [description]
+     * @return {[type]}     [description]
+     */
+    if(lan === 'zh'){
+      document.title = '中国';
+    } else if(lan === 'en'){
+      document.title = '英国';
+    }
+    /**
+     * 翻译key map
+     * @type {Object}
+     */
+    var data = {
+        'code': lan,
+        'en':{
+          'key01': 'Welcome to English',
+        },
+        'zh':{
+          'key01': '欢迎来到中国'
+      },
+    };
+    var html = template('tpl', data);
+    document.getElementById('ob').innerHTML = html;
+
+  </script>
+</html>
