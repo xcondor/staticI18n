@@ -20,17 +20,19 @@
                 height: 100%;
                 background-color: #fff;
             }
+            .main{
+              border:#ccc 1px solid;
+              width:1000px;
+              margin:100px auto;
+              padding:5px;
+            }
         </style>
     </head>
     <body id="ob"></body>
-    <script src="https://ddcdn.jd.com/ucc/html/static/template.js"></script>
+    <script src="template.js"></script>
     <script id="tpl" type="text/html">
         <div class="main">
-            <div class="declare-wrap">
-                <div class="declare declare-1">
-                {{if code === 'zh'}}{{zh.key01}}{{else if code === 'en' }}{{en.key01}}{{/if}}
-                </div>
-            </div>
+           {{if code === 'zh'}}{{zh.key01}}{{else if code === 'en' }}{{en.key01}}{{/if}}
         </div>
     </script>
     <script>
@@ -44,7 +46,7 @@
       var r = window.location.search.substr(1).match(reg);
       if (r != null) return unescape(r[2]); return null;
     }
-    
+
     var lan = '';
 
     if(qs('lang') && qs('lang') !== null){
